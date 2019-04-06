@@ -7,6 +7,14 @@ class Data {
      */
     login = API.AuthAPI.login;
     signUp = API.AuthAPI.signUp;
+
+    /**
+     * To-Do Lists
+     */
+    listTodoLists = API.TodoListsAPI.list;
+    createTodoList = API.TodoListsAPI.create;
+    updateTodoList = API.TodoListsAPI.update;
+    deleteTodoList = API.TodoListsAPI.delete;
 }
 
 
