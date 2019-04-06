@@ -2,6 +2,8 @@ import React from "react";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import {ToastContainer} from "react-toastify";
 import * as Public from "./screens/public";
+import * as Protected from "./screens/protected";
+import {ProtectedRoute} from "./components/routing";
 import "semantic-ui-css/semantic.min.css";
 
 class App extends React.Component {
@@ -21,7 +23,8 @@ class App extends React.Component {
                                    component={Public.SignUp}/>
 
                             {/*Protected*/}
-
+                            <ProtectedRoute exact path={"/todoLists"}
+                                            component={Protected.TodoLists}/>
                             {/*Not Found*/}
                             <Public.Error message="Page Not Found."/>
                         </Switch>

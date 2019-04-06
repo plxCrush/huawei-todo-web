@@ -1,4 +1,4 @@
-export const auth = {
+export const Auth = {
 
     setCurrentUser(user) {
         localStorage.setItem("auth", JSON.stringify({user}));
