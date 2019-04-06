@@ -2,6 +2,8 @@ import React from "react";
 import {Container, Divider, Grid, Header, Segment} from "semantic-ui-react";
 import {LoginForm} from "../../components";
 import {Link} from "react-router-dom";
+import {data} from "../../data";
+import {Auth} from "../../utils";
 
 class Login extends React.Component {
 
@@ -24,6 +26,17 @@ class Login extends React.Component {
     handleSubmit() {
 
         const {credentials} = this.state;
+        this.setState({loading: true});
+        data.login(credentials).then(
+            user => {
+                Auth.setCurrentUser(user);
+                this.setState({loading: false});
+            },
+            error => {
+                console.log("error", error);
+                this.setState({loading: false});
+            }
+        );
         console.log("credentials", credentials);
     }
 
@@ -33,17 +46,17 @@ class Login extends React.Component {
         return (
             <Container style={styles.root}>
                 <Grid centered columns={1}>
-                        <Grid.Column style={styles.form}>
-                            <Header attached="top">Login</Header>
-                            <Segment attached>
-                                <LoginForm loading={loading}
-                                           credentials={credentials}
-                                           onChange={this.handleChange}
-                                           onSubmit={this.handleSubmit}/>
-                                <Divider hidden/>
-                                <Link to={"/signUp"}>Sign Up</Link>
-                            </Segment>
-                        </Grid.Column>
+                    <Grid.Column style={styles.form}>
+                        <Header attached="top">Login</Header>
+                        <Segment attached>
+                            <LoginForm loading={loading}
+                                       credentials={credentials}
+                                       onChange={this.handleChange}
+                                       onSubmit={this.handleSubmit}/>
+                            <Divider hidden/>
+                            <Link to={"/signUp"}>Sign Up</Link>
+                        </Segment>
+                    </Grid.Column>
 
                 </Grid>
             </Container>

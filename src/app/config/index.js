@@ -1,3 +1,6 @@
 export default {
-    ApiUrl: "http://localhost:8080/api/"
+    debug: true,
+    API: {
+        EndpointUrl:  "http://localhost:8080/api"
+    }
 }

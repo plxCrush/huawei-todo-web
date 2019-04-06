@@ -5,6 +5,9 @@ import * as Public from "./screens/public";
 import * as Protected from "./screens/protected";
 import {ProtectedRoute} from "./components/routing";
 import "semantic-ui-css/semantic.min.css";
+import "react-toastify/dist/ReactToastify.min.css";
+
+require("./utils/httpInterceptors");
 
 class App extends React.Component {
 
