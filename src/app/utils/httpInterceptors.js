@@ -1,4 +1,3 @@
-import {BrowserRouter as Router} from "react-router-dom";
 import axios from "axios";
 import {toast} from "react-toastify";
 import Config from "../config";
@@ -50,16 +49,17 @@ export const defaultResponseInterceptor = axios.interceptors.response.use(
         return response;
     },
     error => {
+
         if (Config.debug) {
             console.log("Axios response error", error);
         }
 
-        if (error.response.status === 403 ||
-            error.response.status === 401) {
-            toast.error(error.response.data.errorMessage || "Please sign in.");
-            Auth.logout();
-            Router.history.push("/login?returnUrl=" + window.location.pathname)
-        }
+        // if (error.response.status === 403 ||
+        //     error.response.status === 401) {
+        //     toast.error(error.response.data.errorMessage || "Please sign in.");
+        //     Auth.logout();
+        //     Router.history.push("/login?returnUrl=" + window.location.pathname)
+        // }
 
         const {errorMessage} = error.response.data;
 

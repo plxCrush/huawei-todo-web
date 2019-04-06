@@ -1,7 +1,7 @@
 import React from "react";
 import {Container, Divider, Grid, Header, Segment} from "semantic-ui-react";
 import {LoginForm} from "../../components";
-import {Link} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 import {data} from "../../data";
 import {Auth} from "../../utils";
 
@@ -29,8 +29,9 @@ class Login extends React.Component {
         this.setState({loading: true});
         data.login(credentials).then(
             user => {
-                Auth.setCurrentUser(user);
                 this.setState({loading: false});
+                Auth.setCurrentUser(user);
+                this.props.history.push("/todoLists");
             },
             error => {
                 console.log("error", error);
@@ -57,7 +58,6 @@ class Login extends React.Component {
                             <Link to={"/signUp"}>Sign Up</Link>
                         </Segment>
                     </Grid.Column>
-
                 </Grid>
             </Container>
         );
@@ -66,7 +66,7 @@ class Login extends React.Component {
 
 const styles = {
     root: {
-        marginTop: 30,
+        marginTop: 30
     },
     form: {
         marginTop: 50,
@@ -74,4 +74,4 @@ const styles = {
     }
 };
 
-export default Login;
+export default withRouter(Login);

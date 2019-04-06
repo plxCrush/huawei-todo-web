@@ -6,8 +6,10 @@ import * as Protected from "./screens/protected";
 import {ProtectedRoute} from "./components/routing";
 import "semantic-ui-css/semantic.min.css";
 import "react-toastify/dist/ReactToastify.min.css";
+import {NavMenu} from "./components";
 
 require("./utils/httpInterceptors");
+const Background = require("./assets/images/background.png");
 
 class App extends React.Component {
 
@@ -15,6 +17,7 @@ class App extends React.Component {
         return (
             <Router>
                 <div style={styles.root}>
+                    <NavMenu/>
                     <div style={styles.content}>
                         <Switch>
                             {/*Public*/}
@@ -49,7 +52,8 @@ const styles = {
         flexGrow: 1,
         alignSelf: "stretch",
         paddingBottom: 20,
-        paddingTop: 40
+        paddingTop: 40,
+        backgroundImage: `url(${Background})`
     }
 };
 

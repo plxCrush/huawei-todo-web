@@ -5,7 +5,7 @@ export default class Loading extends React.Component {
     render() {
         return (
             <div style={styles.root}>
-                Loading...
+                <img alt="Loading..." src={require("../../assets/images/loading.gif")}/>
             </div>
         )
     }
