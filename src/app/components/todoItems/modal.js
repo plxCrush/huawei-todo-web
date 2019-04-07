@@ -87,24 +87,13 @@ export class TodoItemModal extends React.Component {
                     <Grid columns={2}>
                         <Grid.Column align="left">
                             {
-                                todoItem.completed
-                                    ?
-                                    <Label>
-                                        Completed
-                                        <Icon name="check"/>
-                                    </Label>
-                                    :
+                                !todoItem.completed &&
                                     <Button positive
                                             disabled={loading}
                                             onClick={this.markAsCompleted}>
                                         Mark As Completed
                                     </Button>
                             }
-                            <Button primary
-                                    disabled={loading}>
-                                Dependencies
-                                <Icon name="right chevron"/>
-                            </Button>
                         </Grid.Column>
                         <Grid.Column>
                             <Button disabled={loading}

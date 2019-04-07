@@ -1,5 +1,6 @@
 import React from "react";
 import {Button, Icon, Message, Table} from "semantic-ui-react";
+import {formatDate} from "../../utils";
 
 export class TodoItemList extends React.Component {
 
@@ -41,6 +42,7 @@ export class TodoItemList extends React.Component {
                         <Table.HeaderCell collapsing>Completed</Table.HeaderCell>
                         <Table.HeaderCell>Name</Table.HeaderCell>
                         <Table.HeaderCell>Deadline</Table.HeaderCell>
+                        <Table.HeaderCell>Created At</Table.HeaderCell>
                         <Table.HeaderCell collapsing>&nbsp;</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
@@ -58,7 +60,8 @@ export class TodoItemList extends React.Component {
                                     }
                                 </Table.Cell>
                                 <Table.Cell>{todoItem.name}</Table.Cell>
-                                <Table.Cell>{todoItem.deadline}</Table.Cell>
+                                <Table.Cell>{formatDate(todoItem.deadline)}</Table.Cell>
+                                <Table.Cell>{formatDate(todoItem.createdAt)}</Table.Cell>
                                 <Table.Cell collapsing singleLine>
                                     <Button negative
                                             size="tiny"
