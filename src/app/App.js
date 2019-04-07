@@ -14,6 +14,7 @@ const Background = require("./assets/images/background.png");
 class App extends React.Component {
 
     render() {
+
         return (
             <Router>
                 <div style={styles.root}>
@@ -31,6 +32,8 @@ class App extends React.Component {
                             {/*Protected*/}
                             <ProtectedRoute exact path={"/todoLists"}
                                             component={Protected.TodoLists}/>
+                            <ProtectedRoute exact path={"/todoLists/:id/items"}
+                                            component={Protected.TodoItems}/>
                             {/*Not Found*/}
                             <Public.Error message="Page Not Found."/>
                         </Switch>

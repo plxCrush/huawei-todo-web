@@ -1,10 +1,10 @@
 import React from "react";
 import {Confirm} from "semantic-ui-react";
-import {TodoListFilter, TodoListList, TodoListModal} from "../../components";
+import {TodoItemFilter, TodoItemList, TodoItemModal} from "../../components";
 import {data} from "../../data";
 import {toast} from "react-toastify";
 
-export class TodoListSearch extends React.Component {
+export class TodoItemSearch extends React.Component {
 
     constructor(props) {
         super(props);
@@ -22,11 +22,13 @@ export class TodoListSearch extends React.Component {
 
     search(filter = {}) {
 
+        const {todoListId} = this.props;
+        filter.todoListId = todoListId;
         this.setState({loading: true});
-        data.listTodoLists(filter).then(
-            todoLists => {
-                console.log("TodoLists", todoLists);
-                this.setState({todoLists, loading: false});
+        data.listTodoItems(filter).then(
+            todoItems => {
+                console.log("TodoItems", todoItems);
+                this.setState({todoItems, loading: false});
             },
             error => {
                 console.log(error);
@@ -35,13 +37,13 @@ export class TodoListSearch extends React.Component {
         );
     };
 
-    delete(todoList) {
+    delete(todoItem) {
 
         this.setState({loading: true});
-        data.deleteTodoList(todoList.id).then(
+        data.deleteTodoItem(todoItem.id).then(
             () => {
                 this.setState({loading: false});
-                toast.success("List deleted.");
+                toast.success("Item deleted.");
                 this.closeDeleteModal(true);
             },
             error => {
@@ -56,25 +58,25 @@ export class TodoListSearch extends React.Component {
         this.search();
     };
 
-    openEditModal(todoList) {
+    openEditModal(todoItem) {
 
-        this.setState({todoList, editModalIsOpen: true});
+        this.setState({todoItem, editModalIsOpen: true});
     };
 
     closeEditModal(refresh) {
 
-        this.setState({todoList: undefined, editModalIsOpen: false});
+        this.setState({todoItem: undefined, editModalIsOpen: false});
         if (refresh) this.refresh();
     };
 
-    openDeleteModal(todoList){
+    openDeleteModal(todoItem){
 
-        this.setState({todoList, deleteModalIsOpen: true});
+        this.setState({todoItem, deleteModalIsOpen: true});
     };
 
     closeDeleteModal(refresh) {
 
-        this.setState({todoList: undefined, deleteModalIsOpen: false});
+        this.setState({todoItem: undefined, deleteModalIsOpen: false});
         if (refresh) this.refresh();
     };
 
@@ -85,34 +87,35 @@ export class TodoListSearch extends React.Component {
 
     render() {
 
-        const {todoLists, todoList, filter, paging, loading, editModalIsOpen, deleteModalIsOpen} = this.state;
+        const {todoItems, todoItem, filter, paging, loading, editModalIsOpen, deleteModalIsOpen} = this.state;
         return (
             <div>
-                <TodoListFilter filter={filter}
+                <TodoItemFilter filter={filter}
                                 loading={loading}
                                 onSearch={this.search}/>
-                <TodoListList todoLists={todoLists}
+                <TodoItemList todoItems={todoItems}
                               paging={paging}
                               onCreate={() => this.openEditModal({})}
                               onSelect={this.openEditModal}
                               onDelete={this.openDeleteModal}/>
                 {
-                    editModalIsOpen && todoList &&
-                    <TodoListModal open={editModalIsOpen}
-                                   todoList={todoList}
+                    editModalIsOpen && todoItem &&
+                    <TodoItemModal open={editModalIsOpen}
+                                   todoItem={todoItem}
+                                   todoListId={this.props.todoListId}
                                    onClose={this.closeEditModal}/>
                 }
                 {
-                    deleteModalIsOpen && todoList &&
+                    deleteModalIsOpen && todoItem &&
                     <Confirm open={true}
                              size="mini"
                              closeOnDimmerClick={false}
-                             header="Delete List"
-                             content="Are you sure you want to delete the to-do list?"
+                             header="Delete Item"
+                             content="Are you sure you want to delete the to-do item?"
                              confirmButton="Delete"
                              cancelButton="Cancel"
                              onCancel={() => this.closeDeleteModal(false)}
-                             onConfirm={() => this.delete(todoList)}/>
+                             onConfirm={() => this.delete(todoItem)}/>
                 }
             </div>
         )

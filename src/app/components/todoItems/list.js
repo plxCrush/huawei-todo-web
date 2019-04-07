@@ -1,7 +1,7 @@
 import React from "react";
 import {Button, Icon, Message, Table} from "semantic-ui-react";
 
-export class TodoListList extends React.Component {
+export class TodoItemList extends React.Component {
 
     constructor(props) {
         super(props);
@@ -10,26 +10,26 @@ export class TodoListList extends React.Component {
         this.renderList = this.renderList.bind(this);
     }
 
-    select(todoList) {
+    select(todoItem) {
 
-        this.props.onSelect(todoList);
+        this.props.onSelect(todoItem);
     };
 
-    delete(todoList) {
+    delete(todoItem) {
 
-        this.props.onDelete(todoList);
+        this.props.onDelete(todoItem);
     };
 
     renderList() {
 
-        const {todoLists} = this.props;
-        if (!todoLists) {
+        const {todoItems} = this.props;
+        if (!todoItems) {
             return null;
-        } else if (!todoLists.length) {
+        } else if (!todoItems.length) {
             return (
                 <Message>
                     <Icon name="warning" color="red"/>
-                    List not found...
+                    Item not found...
                 </Message>
             );
         }
@@ -38,23 +38,33 @@ export class TodoListList extends React.Component {
             <Table celled selectable>
                 <Table.Header>
                     <Table.Row>
+                        <Table.HeaderCell collapsing>Completed</Table.HeaderCell>
                         <Table.HeaderCell>Name</Table.HeaderCell>
+                        <Table.HeaderCell>Deadline</Table.HeaderCell>
                         <Table.HeaderCell collapsing>&nbsp;</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
                     {
-                        todoLists.map(todoList => (
-                            <Table.Row key={todoList.id}
-                                       negative={!todoList.enabled}
-                                       onClick={e => this.select(todoList)}>
-                                <Table.Cell>{todoList.name}</Table.Cell>
+                        todoItems.map(todoItem => (
+                            <Table.Row key={todoItem.id}
+                                       negative={!todoItem.completed}
+                                       onClick={e => this.select(todoItem)}>
+                                <Table.Cell collapsing textAlign="center">
+                                    {
+                                        todoItem.completed
+                                            ? <Icon name="checkmark" color="green"/>
+                                            : <Icon name="remove" color="red"/>
+                                    }
+                                </Table.Cell>
+                                <Table.Cell>{todoItem.name}</Table.Cell>
+                                <Table.Cell>{todoItem.deadline}</Table.Cell>
                                 <Table.Cell collapsing singleLine>
                                     <Button negative
                                             size="tiny"
                                             onClick={e => {
                                                 e.stopPropagation();
-                                                this.delete(todoList);
+                                                this.delete(todoItem);
                                             }}>
                                         <Icon name="remove"/>
                                         Delete
@@ -76,7 +86,7 @@ export class TodoListList extends React.Component {
                     <Button size="small" positive
                             onClick={this.props.onCreate}>
                         <Icon name="plus"/>
-                        Create New List
+                        Create New Item
                     </Button>
                 }
                 {this.renderList()}

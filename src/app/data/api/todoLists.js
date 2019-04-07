@@ -10,6 +10,12 @@ export const TodoListsAPI = {
             .catch(error => reject(error));
     }),
 
+    get: (id) => new Promise((resolve, reject) => {
+        axios.get(`${Configuration.API.EndpointUrl}/todo-lists/${id}`)
+            .then(result => resolve(result.data))
+            .catch(error => reject(error));
+    }),
+
     create: (todoList) => new Promise((resolve, reject) => {
         axios.post(`${Configuration.API.EndpointUrl}/todo-lists`, todoList)
             .then(result => resolve(result.data))

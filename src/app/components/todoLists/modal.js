@@ -1,6 +1,6 @@
 import React from "react";
 import {withRouter} from "react-router-dom";
-import {Button, Modal} from "semantic-ui-react";
+import {Button, Grid, Icon, Modal} from "semantic-ui-react";
 import {TodoListForm} from "../../components";
 import {data} from "../../data";
 import {toast} from "react-toastify";
@@ -13,6 +13,7 @@ class _TodoListModal extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.save = this.save.bind(this);
         this.close = this.close.bind(this);
+        this.goToItems = this.goToItems.bind(this);
     }
 
     state = {
@@ -54,8 +55,16 @@ class _TodoListModal extends React.Component {
     };
 
     close() {
+
         this.props.onClose && this.props.onClose(this.state.refreshParent);
     };
+
+    goToItems() {
+
+        const {todoList} = this.state;
+        console.log("todo list", todoList);
+        this.props.history.push(`/todoLists/${todoList.id}/items`);
+    }
 
     render() {
 
@@ -71,15 +80,27 @@ class _TodoListModal extends React.Component {
                                   onChange={this.handleChange}/>
                 </Modal.Content>
                 <Modal.Actions>
-                    <Button disabled={loading}
-                            onClick={this.close}>
-                        Close
-                    </Button>
-                    <Button primary
-                            disabled={loading}
-                            onClick={this.save}>
-                        Save
-                    </Button>
+                    <Grid columns={2}>
+                        <Grid.Column align="left">
+                            <Button positive
+                                    disabled={loading}
+                                    onClick={this.goToItems}>
+                                View Items
+                                <Icon name="right chevron"/>
+                            </Button>
+                        </Grid.Column>
+                        <Grid.Column>
+                            <Button disabled={loading}
+                                    onClick={this.close}>
+                                Close
+                            </Button>
+                            <Button primary
+                                    disabled={loading}
+                                    onClick={this.save}>
+                                Save
+                            </Button>
+                         </Grid.Column>
+                    </Grid>
                 </Modal.Actions>
             </Modal>
         )
