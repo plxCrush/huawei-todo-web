@@ -1,5 +1,5 @@
 import React from "react";
-import {Form, Input, Label, TextArea} from "semantic-ui-react";
+import {Form, Input, TextArea} from "semantic-ui-react";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";

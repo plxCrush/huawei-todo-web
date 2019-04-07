@@ -60,8 +60,8 @@ export class TodoItemList extends React.Component {
                                     }
                                 </Table.Cell>
                                 <Table.Cell>{todoItem.name}</Table.Cell>
-                                <Table.Cell>{formatDate(todoItem.deadline)}</Table.Cell>
-                                <Table.Cell>{formatDate(todoItem.createdAt)}</Table.Cell>
+                                <Table.Cell>{todoItem.deadline ? formatDate(todoItem.deadline) : ""}</Table.Cell>
+                                <Table.Cell>{todoItem.createdAt ? formatDate(todoItem.createdAt): ""}</Table.Cell>
                                 <Table.Cell collapsing singleLine>
                                     <Button negative
                                             size="tiny"

@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Grid, Icon, Label, Modal} from "semantic-ui-react";
+import {Button, Grid, Tab, Modal} from "semantic-ui-react";
 import {TodoItemForm} from "../../components";
 import {data} from "../../data";
 import {toast} from "react-toastify";
@@ -73,15 +73,38 @@ export class TodoItemModal extends React.Component {
     render() {
 
         const {todoItem, loading} = this.state;
+
+        let panes = [
+            {
+                menuItem: "Details", render: () =>
+                    <Tab.Pane>
+                        <TodoItemForm todoItem={todoItem}
+                                      loading={loading}
+                                      onChange={this.handleChange}/>
+                    </Tab.Pane>
+            }
+        ];
+
+        if (todoItem && todoItem.id) {
+            panes.push(
+                {
+                    menuItem: "Dependencies", render: () =>
+                        <Tab.Pane>
+                            asdasd
+                        </Tab.Pane>
+                }
+            );
+        }
+
         return (
             <Modal open={true}
                    closeOnDimmerClick={false}
                    onClose={this.close}>
                 <Modal.Header>{todoItem.id ? "Edit Item" : "New Item"}</Modal.Header>
                 <Modal.Content>
-                    <TodoItemForm todoItem={todoItem}
-                                  loading={loading}
-                                  onChange={this.handleChange}/>
+                    {
+                        <Tab panes={panes}/>
+                    }
                 </Modal.Content>
                 <Modal.Actions>
                     <Grid columns={2}>
