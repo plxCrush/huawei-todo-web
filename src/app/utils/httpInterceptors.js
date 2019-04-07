@@ -54,17 +54,13 @@ export const defaultResponseInterceptor = axios.interceptors.response.use(
             console.log("Axios response error", error);
         }
 
-        // if (error.response.status === 403 ||
-        //     error.response.status === 401) {
-        //     toast.error(error.response.data.errorMessage || "Please sign in.");
-        //     Auth.logout();
-        //     Router.history.push("/login?returnUrl=" + window.location.pathname)
-        // }
-
-        const {errorMessage} = error.response.data;
+        const {errorMessage, message} = error.response.data;
 
         if (errorMessage) {
             toast.error(errorMessage);
+        }
+        else if (message) {
+            toast.error(message);
         } else {
             toast.error("An unexpected error occurred.");
         }

@@ -22,14 +22,7 @@ export class TodoItemModal extends React.Component {
     handleChange(event, target) {
 
         let {todoItem} = this.state;
-        if (target.type === "checkbox") {
-            todoItem[target.name] = target.checked;
-        } else if (target.name === "medium") {
-            todoItem.medium = target.value;
-            todoItem.mediumId = target.value ? target.value.id : null;
-        } else {
-            todoItem[target.name] = target.value;
-        }
+        todoItem[target.name] = target.value;
         this.setState({todoItem});
     };
 

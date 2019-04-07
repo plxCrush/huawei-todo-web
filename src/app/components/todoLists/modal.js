@@ -23,14 +23,7 @@ class _TodoListModal extends React.Component {
     handleChange(event, target) {
 
         let {todoList} = this.state;
-        if (target.type === "checkbox") {
-            todoList[target.name] = target.checked;
-        } else if (target.name === "medium") {
-            todoList.medium = target.value;
-            todoList.mediumId = target.value ? target.value.id : null;
-        } else {
-            todoList[target.name] = target.value;
-        }
+        todoList[target.name] = target.value;
         this.setState({todoList});
     };
 
@@ -62,7 +55,6 @@ class _TodoListModal extends React.Component {
     goToItems() {
 
         const {todoList} = this.state;
-        console.log("todo list", todoList);
         this.props.history.push(`/todoLists/${todoList.id}/items`);
     }
 
