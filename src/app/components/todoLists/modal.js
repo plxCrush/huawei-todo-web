@@ -74,12 +74,15 @@ class _TodoListModal extends React.Component {
                 <Modal.Actions>
                     <Grid columns={2}>
                         <Grid.Column align="left">
-                            <Button positive
-                                    disabled={loading}
-                                    onClick={this.goToItems}>
-                                View Items
-                                <Icon name="right chevron"/>
-                            </Button>
+                            {
+                                todoList.id &&
+                                <Button positive
+                                        disabled={loading}
+                                        onClick={this.goToItems}>
+                                    View Items
+                                    <Icon name="right chevron"/>
+                                </Button>
+                            }
                         </Grid.Column>
                         <Grid.Column>
                             <Button disabled={loading}
@@ -91,7 +94,7 @@ class _TodoListModal extends React.Component {
                                     onClick={this.save}>
                                 Save
                             </Button>
-                         </Grid.Column>
+                        </Grid.Column>
                     </Grid>
                 </Modal.Actions>
             </Modal>
