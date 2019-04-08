@@ -15,13 +15,26 @@ export class TodoItemSearch extends React.Component {
         this.closeEditModal = this.closeEditModal.bind(this);
         this.openDeleteModal = this.openDeleteModal.bind(this);
         this.closeDeleteModal = this.closeDeleteModal.bind(this);
+        this.handleFilterChange = this.handleFilterChange.bind(this);
         this.state = {
-            filter: {}
+            filter: {
+                todoListId: this.props.todoListId,
+                sortBy: "name",
+                sortDirection: "ASC"
+            }
         }
     };
 
-    search(filter = {}) {
+    handleFilterChange(updatedFilter) {
 
+        let {filter} = this.state;
+        filter = {...filter, ...updatedFilter};
+        this.setState({filter}, () => this.search());
+    }
+
+    search() {
+
+        let {filter} = this.state;
         const {todoListId} = this.props;
         filter.todoListId = todoListId;
         this.setState({loading: true});
@@ -87,14 +100,16 @@ export class TodoItemSearch extends React.Component {
 
     render() {
 
-        const {todoItems, todoItem, filter, paging, loading, editModalIsOpen, deleteModalIsOpen} = this.state;
+        const {todoItems, todoItem, filter, loading, editModalIsOpen, deleteModalIsOpen} = this.state;
         return (
             <div>
                 <TodoItemFilter filter={filter}
+                                onFilterChange={this.handleFilterChange}
                                 loading={loading}
                                 onSearch={this.search}/>
                 <TodoItemList todoItems={todoItems}
-                              paging={paging}
+                              filter={filter}
+                              onSortChange={this.handleFilterChange}
                               onCreate={() => this.openEditModal({})}
                               onSelect={this.openEditModal}
                               onDelete={this.openDeleteModal}/>

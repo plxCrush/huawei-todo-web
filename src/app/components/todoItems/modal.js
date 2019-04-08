@@ -116,7 +116,7 @@ export class TodoItemModal extends React.Component {
                     <Grid columns={2}>
                         <Grid.Column align="left">
                             {
-                                !todoItem.completed &&
+                                todoItem.id && !todoItem.completed &&
                                     <Button positive
                                             disabled={loading}
                                             onClick={this.markAsCompleted}>

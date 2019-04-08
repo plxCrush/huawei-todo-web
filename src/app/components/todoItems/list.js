@@ -9,6 +9,20 @@ export class TodoItemList extends React.Component {
         this.select = this.select.bind(this);
         this.delete = this.delete.bind(this);
         this.renderList = this.renderList.bind(this);
+        this.renderSortIcon = this.renderSortIcon.bind(this);
+    }
+
+    handleSortChange(key) {
+
+        let {filter} = this.props;
+        if (filter.sortBy !== key) {
+            filter.sortDirection = "ASC";
+            filter.sortBy = key;
+        } else {
+            if (filter.sortDirection === "ASC") filter.sortDirection = "DESC";
+            else filter.sortDirection = "ASC";
+        }
+        this.props.onSortChange(filter);
     }
 
     select(todoItem) {
@@ -21,9 +35,19 @@ export class TodoItemList extends React.Component {
         this.props.onDelete(todoItem);
     };
 
+    renderSortIcon() {
+
+        const {filter} = this.props;
+        return filter.sortDirection === "DESC"
+            ?
+            <Icon name="triangle down"/>
+            :
+            <Icon name="triangle up"/>
+    }
+
     renderList() {
 
-        const {todoItems} = this.props;
+        const {todoItems, filter} = this.props;
         if (!todoItems) {
             return null;
         } else if (!todoItems.length) {
@@ -39,10 +63,35 @@ export class TodoItemList extends React.Component {
             <Table celled selectable>
                 <Table.Header>
                     <Table.Row>
-                        <Table.HeaderCell collapsing>Completed</Table.HeaderCell>
-                        <Table.HeaderCell>Name</Table.HeaderCell>
-                        <Table.HeaderCell>Deadline</Table.HeaderCell>
-                        <Table.HeaderCell>Created At</Table.HeaderCell>
+                        <Table.HeaderCell collapsing onClick={() => this.handleSortChange("completed")}>
+                            Completed
+                            {
+                                filter.sortBy === "completed" &&
+                                this.renderSortIcon()
+                            }
+                            <Icon/>
+                        </Table.HeaderCell>
+                        <Table.HeaderCell onClick={() => this.handleSortChange("name")}>
+                            Name
+                            {
+                                filter.sortBy === "name" &&
+                                this.renderSortIcon()
+                            }
+                        </Table.HeaderCell>
+                        <Table.HeaderCell onClick={() => this.handleSortChange("deadline")}>
+                            Deadline
+                            {
+                                filter.sortBy === "deadline" &&
+                                this.renderSortIcon()
+                            }
+                        </Table.HeaderCell>
+                        <Table.HeaderCell onClick={() => this.handleSortChange("createdAt")}>
+                            Created At
+                            {
+                                filter.sortBy === "createdAt" &&
+                                this.renderSortIcon()
+                            }
+                        </Table.HeaderCell>
                         <Table.HeaderCell collapsing>&nbsp;</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
