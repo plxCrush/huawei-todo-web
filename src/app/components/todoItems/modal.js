@@ -1,6 +1,6 @@
 import React from "react";
 import {Button, Grid, Tab, Modal} from "semantic-ui-react";
-import {TodoItemForm} from "../../components";
+import {TodoItemDependencies, TodoItemForm} from "../../components";
 import {data} from "../../data";
 import {toast} from "react-toastify";
 import _ from "lodash";
@@ -12,6 +12,7 @@ export class TodoItemModal extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.save = this.save.bind(this);
         this.close = this.close.bind(this);
+        this.refresh = this.refresh.bind(this);
         this.markAsCompleted = this.markAsCompleted.bind(this);
     }
 
@@ -70,6 +71,10 @@ export class TodoItemModal extends React.Component {
         );
     }
 
+    refresh(todoItem) {
+        this.setState({todoItem, refreshParent: true});
+    }
+
     render() {
 
         const {todoItem, loading} = this.state;
@@ -90,7 +95,8 @@ export class TodoItemModal extends React.Component {
                 {
                     menuItem: "Dependencies", render: () =>
                         <Tab.Pane>
-                            asdasd
+                            <TodoItemDependencies todoItem={todoItem}
+                                                  refresh={this.refresh}/>
                         </Tab.Pane>
                 }
             );
