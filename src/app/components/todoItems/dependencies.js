@@ -114,7 +114,7 @@ export class TodoItemDependencies extends React.Component {
                                     {
                                         dependency.completed
                                             ? <Icon name="checkmark" color="green"/>
-                                            : <Icon name="remove" color="red"/>
+                                            : <Icon name="hourglass half" color="blue"/>
                                     }
                                 </Table.Cell>
                                 <Table.Cell>{dependency.name}</Table.Cell>

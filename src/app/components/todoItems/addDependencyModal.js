@@ -56,7 +56,7 @@ export class TodoItemAddDependencyModal extends React.Component {
                                     {
                                         todoItem.completed
                                             ? <Icon name="checkmark" color="green"/>
-                                            : <Icon name="remove" color="red"/>
+                                            : <Icon name="hourglass half" color="blue"/>
                                     }
                                 </Table.Cell>
                                 <Table.Cell>{todoItem.name}</Table.Cell>
