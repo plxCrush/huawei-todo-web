@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Form, Icon, Input} from "semantic-ui-react";
+import {Button, Dropdown, Form, Icon, Input} from "semantic-ui-react";
 
 export class TodoItemFilter extends React.Component {
 
@@ -32,13 +32,65 @@ export class TodoItemFilter extends React.Component {
         return (
             <Form loading={loading}
                   onSubmit={this.handleSubmit}>
-                <Form.Group>
+                <Form.Group widths="equal">
                     <Form.Field>
                         <label>Item Name</label>
                         <Input autoFocus
                                name="keyword"
                                value={filter.keyword || ""}
                                onChange={this.handleChange}/>
+                    </Form.Field>
+                    <Form.Field>
+                        <label>Complete Status</label>
+                        <Dropdown placeholder="All"
+                                  name="completed"
+                                  fluid
+                                  selection
+                                  onChange={this.handleChange}
+                                  options={[
+                                      {
+                                          key: "All",
+                                          text: "All",
+                                          value: undefined
+                                      },
+                                      {
+                                          key: "Complete",
+                                          text: "Complete",
+                                          value: true
+                                      },
+                                      {
+                                          key: "Incomplete",
+                                          text: "Incomplete",
+                                          value: false
+                                      }
+                                  ]}
+                        />
+                    </Form.Field>
+                    <Form.Field>
+                        <label>Expire Status</label>
+                        <Dropdown placeholder="All"
+                                  name="expired"
+                                  fluid
+                                  selection
+                                  onChange={this.handleChange}
+                                  options={[
+                                      {
+                                          key: "All",
+                                          text: "All",
+                                          value: undefined
+                                      },
+                                      {
+                                          key: "Expired",
+                                          text: "Expired",
+                                          value: true
+                                      },
+                                      {
+                                          key: "Unexpired",
+                                          text: "Unexpired",
+                                          value: false
+                                      }
+                                  ]}
+                        />
                     </Form.Field>
                     <Form.Field>
                         <label>&nbsp;</label>
