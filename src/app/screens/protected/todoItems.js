@@ -12,11 +12,8 @@ class TodoItems extends React.Component {
 
         const {id} = this.props.match.params;
         data.getTodoList(id).then(
-            todoList => this.setState({todoList}),
-            error => {
-                console.log("error", error);
-            }
-        )
+            todoList => this.setState({todoList})
+        );
     }
 
     goToLists = () => this.props.history.push("/todoLists");

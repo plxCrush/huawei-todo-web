@@ -52,7 +52,7 @@ class _NavMenu extends React.Component {
                                         Logout
                                     </Menu.Item>
                                 </React.Fragment>
-                            :
+                                :
                                 <React.Fragment>
                                     <Link to={"/login"} style={styles.link}>
                                         <Button size="small" primary>Login</Button>

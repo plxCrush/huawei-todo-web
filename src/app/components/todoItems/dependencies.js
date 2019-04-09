@@ -21,7 +21,15 @@ export class TodoItemDependencies extends React.Component {
     }
 
     componentDidMount() {
-        this.getDependencyOptions();
+
+        const {todoItem} = this.props;
+        data.listTodoItems({todoListId: todoItem.todoListId}).then(
+            dependencyOptions => {
+                let filtered = dependencyOptions.filter(i => i.id !== todoItem.id);
+                filtered = filtered.filter(i => !todoItem.dependencies.includes(i));
+                this.setState({dependencyOptions: filtered});
+            }
+        );
     }
 
     remove(dependency) {
@@ -33,8 +41,7 @@ export class TodoItemDependencies extends React.Component {
                 let dependencyOptions = _.cloneDeep(this.state.dependencyOptions);
                 dependencyOptions.push(dependency);
                 this.setState({dependencyOptions});
-            },
-            error => {}
+            }
         );
     }
 
@@ -47,10 +54,8 @@ export class TodoItemDependencies extends React.Component {
                 this.props.refresh(todoItem);
                 let dependencyOptions = _.cloneDeep(this.state.dependencyOptions);
                 dependencyOptions = dependencyOptions.filter(i => i.id !== dependency.id);
-                console.log("dep options", dependencyOptions);
                 this.setState({dependencyOptions});
-            },
-            error => {}
+            }
         );
     }
 
@@ -62,20 +67,6 @@ export class TodoItemDependencies extends React.Component {
     closeAddModal() {
 
         this.setState({addModalIsOpen: false});
-    }
-
-    getDependencyOptions() {
-
-        const {todoItem} = this.props;
-        data.listTodoItems({todoListId: todoItem.todoListId}).then(
-            dependencyOptions => {
-                let filtered = dependencyOptions.filter(i => i.id !== todoItem.id);
-                filtered = filtered.filter(i => !todoItem.dependencies.includes(i));
-                this.setState({dependencyOptions: filtered});
-            }, error => {
-
-            }
-        );
     }
 
     renderList() {
@@ -143,7 +134,6 @@ export class TodoItemDependencies extends React.Component {
 
         const {addModalIsOpen, dependencyOptions} = this.state;
         const {todoItem} = this.props;
-
         return (
             <React.Fragment>
                 <Button size="small" positive

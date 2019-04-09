@@ -19,7 +19,7 @@ export class TodoItemFilter extends React.Component {
         this.setState({filter});
     };
 
-    handleSubmit = event => {
+    handleSubmit(event) {
 
         event.preventDefault();
         this.props.onFilterChange(this.state.filter);

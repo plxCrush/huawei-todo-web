@@ -33,12 +33,8 @@ class Login extends React.Component {
                 Auth.setCurrentUser(user);
                 this.props.history.push("/todoLists");
             },
-            error => {
-                console.log("error", error);
-                this.setState({loading: false});
-            }
+            error => this.setState({loading: false})
         );
-        console.log("credentials", credentials);
     }
 
     render() {

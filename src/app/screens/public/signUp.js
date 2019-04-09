@@ -34,12 +34,8 @@ class SignUp extends React.Component {
                 toast.success("Sign up successful. Please log in.");
                 this.props.history.push("/login");
             },
-            error => {
-                console.log("error", error);
-                this.setState({loading: false});
-            }
+            error => this.setState({loading: false})
         );
-        console.log("credentials", credentials);
     }
 
     render() {

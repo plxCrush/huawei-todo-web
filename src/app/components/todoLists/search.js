@@ -24,14 +24,8 @@ export class TodoListSearch extends React.Component {
 
         this.setState({loading: true});
         data.listTodoLists(filter).then(
-            todoLists => {
-                console.log("TodoLists", todoLists);
-                this.setState({todoLists, loading: false});
-            },
-            error => {
-                console.log(error);
-                this.setState({loading: false})
-            }
+            todoLists => this.setState({todoLists, loading: false}),
+            error => this.setState({loading: false})
         );
     };
 
@@ -44,10 +38,7 @@ export class TodoListSearch extends React.Component {
                 toast.success("List deleted.");
                 this.closeDeleteModal(true);
             },
-            error => {
-                console.log("Delete error", error);
-                this.setState({loading: false});
-            }
+            error => this.setState({loading: false})
         )
     };
 

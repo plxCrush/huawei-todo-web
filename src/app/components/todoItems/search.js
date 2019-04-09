@@ -39,14 +39,8 @@ export class TodoItemSearch extends React.Component {
         filter.todoListId = todoListId;
         this.setState({loading: true});
         data.listTodoItems(filter).then(
-            todoItems => {
-                console.log("TodoItems", todoItems);
-                this.setState({todoItems, loading: false});
-            },
-            error => {
-                console.log(error);
-                this.setState({loading: false})
-            }
+            todoItems => this.setState({todoItems, loading: false}),
+            error => this.setState({loading: false})
         );
     };
 
@@ -56,14 +50,10 @@ export class TodoItemSearch extends React.Component {
         data.deleteTodoItem(todoItem.id).then(
             () => {
                 this.setState({loading: false});
-                toast.success("Item deleted.");
                 this.closeDeleteModal(true);
             },
-            error => {
-                console.log("Delete error", error);
-                this.setState({loading: false});
-            }
-        )
+            error => this.setState({loading: false})
+        );
     };
 
     refresh() {

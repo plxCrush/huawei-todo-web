@@ -40,10 +40,7 @@ class _TodoListModal extends React.Component {
                 toast.success("List saved..");
                 this.setState({todoList, loading: false}, () => this.close());
             },
-            error => {
-                console.log("TodoList save error", error);
-                this.setState({loading: false});
-            }
+            error => this.setState({loading: false})
         );
     };
 

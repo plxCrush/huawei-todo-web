@@ -42,10 +42,7 @@ export class TodoItemModal extends React.Component {
                 toast.success("Item saved..");
                 this.setState({todoItem, loading: false}, () => this.close());
             },
-            error => {
-                console.log("TodoItem save error", error);
-                this.setState({loading: false});
-            }
+            error => this.setState({loading: false})
         );
     };
 
@@ -64,14 +61,12 @@ export class TodoItemModal extends React.Component {
                 toast.success("Marked as Completed.");
                 this.props.onClose && this.props.onClose(this.state.refreshParent);
             },
-            error => {
-                this.setState({loading: false});
-                console.log("error", error);
-            }
+            error => this.setState({loading: false})
         );
     }
 
     refresh(todoItem) {
+
         this.setState({todoItem, refreshParent: true});
     }
 
