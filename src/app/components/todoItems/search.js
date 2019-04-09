@@ -49,6 +49,7 @@ export class TodoItemSearch extends React.Component {
         this.setState({loading: true});
         data.deleteTodoItem(todoItem.id).then(
             () => {
+                toast.success("Item deleted.");
                 this.setState({loading: false});
                 this.closeDeleteModal(true);
             },

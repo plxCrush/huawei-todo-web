@@ -12,6 +12,7 @@ class SignUp extends React.Component {
         super(props);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.isFormInvalid = this.isFormInvalid.bind(this);
         this.state = {
             credentials: {}
         }
@@ -26,6 +27,7 @@ class SignUp extends React.Component {
 
     handleSubmit() {
 
+        if (this.isFormInvalid()) return;
         const {credentials} = this.state;
         this.setState({loading: true});
         data.signUp(credentials).then(
@@ -37,6 +39,31 @@ class SignUp extends React.Component {
             error => this.setState({loading: false})
         );
     }
+
+    isFormInvalid() {
+
+        const {credentials} = this.state;
+        if (!credentials.name) {
+            toast.error("Name cannot be blank.");
+            return true;
+        }
+        else if (!credentials.username) {
+            toast.error("Username cannot be blank.");
+            return true;
+        }
+        else if (!credentials.password) {
+            toast.error("Password cannot be blank.");
+            return true;
+        }
+        else if (!credentials.passwordRepeat) {
+            toast.error("Password confirm cannot be blank.");
+            return true;
+        }
+        else if (credentials.password !== credentials.passwordRepeat) {
+            toast.error("Password does not match with password confirm.");
+            return true;
+        }
+    };
 
     render() {
 

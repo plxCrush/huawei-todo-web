@@ -1,5 +1,5 @@
 export default {
-    debug: true,
+    debug: false,
     API: {
         EndpointUrl:  "http://localhost:8080/api"
     }
